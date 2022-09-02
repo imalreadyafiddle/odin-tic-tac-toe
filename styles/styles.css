@@ -1,0 +1,131 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* END MYER RESET */
+
+html {
+    background-color: black;
+    color: white;
+    font-family: sans-serif;
+}
+
+.gameboard {
+    position: fixed;
+    display: grid;
+    grid-template-columns: 15vw 15vw 15vw;
+    grid-template-rows: 15vw 15vw 15vw;
+    font-size: 15vw;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    outline: 1px solid white;
+    border-radius: 5px;
+}
+
+.scoreboard {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    text-align: center;
+    line-height: 4rem;
+    margin-top: 5vh;
+    outline: solid 2px white;
+    border-radius: 5px;
+    width: 80vw;
+    margin-left: 10vw;
+    align-items: center;
+    font-size: 1.8rem;
+}
+
+.player-one, .player-two {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    font-size: 3rem;
+}
+
+.player-one-name, .player-two-name {
+    border-bottom: solid 1px white;
+    margin-bottom: 5vw;
+}
+
+.player-one-name {
+    border-right: solid 1px white;
+    border-radius: 0px 0px 5px 0px;
+}
+
+.player-two-name {
+    border-left: solid 1px white;
+    border-radius: 0px 0px 0px 5px;
+}
+
+.player-one-score, .player-two-score {
+    outline: solid 1px white;
+    border-radius: 5px;
+}
+
+.top-row {
+    border-bottom: solid 1px white;
+}
+
+.middle-row {
+    border-top: solid 1px white;
+    border-bottom: solid 1px white;
+}
+
+.bottom-row {
+    border-top: solid 1px white;
+}
+
+.middle-column {
+    border-left: solid 1px white;
+    border-right: solid 1px white;
+}
