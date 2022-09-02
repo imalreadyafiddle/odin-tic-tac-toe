@@ -115,8 +115,15 @@ html {
 
 .player-x-score, .player-o-score {
     outline: solid 1px white;
-    border-radius: 5px;
     padding: 1vh;
+}
+
+.player-x-score {
+    border-radius: 0px 5px 0px 5px;
+}
+
+.player-o-score {
+    border-radius: 5px 0px 5px 5px;
 }
 
 .top-row {
