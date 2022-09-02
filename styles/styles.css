@@ -49,6 +49,10 @@ table {
 
 /* END MYER RESET */
 
+* {
+    /* outline: solid 1px red; */
+}
+
 html {
     background-color: black;
     color: white;
@@ -64,7 +68,7 @@ html {
     justify-content: center;
     text-align: center;
     align-items: center;
-    top: 30%;
+    top: 35%;
     left: 50%;
     transform: translateX(-50%);
     outline: 1px solid white;
@@ -73,43 +77,46 @@ html {
 
 .scoreboard {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: auto 1fr auto;
     text-align: center;
-    line-height: 4rem;
     margin-top: 5vh;
     outline: solid 2px white;
     border-radius: 5px;
-    width: 80vw;
-    margin-left: 10vw;
+    width: 90vw;
+    margin-left: 5vw;
     align-items: center;
-    font-size: 1.8rem;
+    font-size: 4rem;
+    gap: 5px;
 }
 
-.player-one, .player-two {
+.player-x, .player-o {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     font-size: 3rem;
+    line-height: 4rem;
 }
 
-.player-one-name, .player-two-name {
+.player-x-name, .player-o-name {
     border-bottom: solid 1px white;
     margin-bottom: 5vw;
+    padding: 1vh;
 }
 
-.player-one-name {
+.player-x-name {
     border-right: solid 1px white;
     border-radius: 0px 0px 5px 0px;
 }
 
-.player-two-name {
+.player-o-name {
     border-left: solid 1px white;
     border-radius: 0px 0px 0px 5px;
 }
 
-.player-one-score, .player-two-score {
+.player-x-score, .player-o-score {
     outline: solid 1px white;
     border-radius: 5px;
+    padding: 1vh;
 }
 
 .top-row {
@@ -128,4 +135,29 @@ html {
 .middle-column {
     border-left: solid 1px white;
     border-right: solid 1px white;
+}
+
+.game-cell {
+    cursor: pointer;
+}
+
+button {
+    display: flex;
+    transition-duration: 150ms;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2vh;
+    font-size: 2rem;
+    border-radius: 5px;
+    border: none;
+}
+
+button:hover {
+    transform: scale(1.1);
+    transition-duration: 150ms;
+}
+
+button:active {
+    transform: scale(0.9);
+    transition-duration: 150ms;
 }
