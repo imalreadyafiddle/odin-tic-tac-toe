@@ -62,13 +62,13 @@ html {
 .gameboard {
     position: fixed;
     display: grid;
-    grid-template-columns: 15vw 15vw 15vw;
-    grid-template-rows: 15vw 15vw 15vw;
-    font-size: 15vw;
+    grid-template-columns: 150px 150px 150px;
+    grid-template-rows: 150px 150px 150px;
+    font-size: 150px;
     justify-content: center;
     text-align: center;
     align-items: center;
-    top: 35%;
+    top: 40%;
     left: 50%;
     transform: translateX(-50%);
     outline: 1px solid white;
@@ -146,6 +146,10 @@ html {
 
 .game-cell {
     cursor: pointer;
+}
+
+.hidden-button {
+    display: none;
 }
 
 button {

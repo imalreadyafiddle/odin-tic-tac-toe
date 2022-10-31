@@ -13,25 +13,28 @@
     <div class="scoreboard">
         <div class="player-x">
             <div class="player-x-name">Player X</div>
-            <div class="player-x-score">Score: <span class="x-score-num">0</span></div>
+            <div class="player-x-score">Score: <span class="x-score-num">2</span></div>
         </div>
         <div class ="game-console">PLAYER X TURN</div>
         <div class="player-o">
             <div class="player-o-name">Player O</div>
-            <div class="player-o-score">Score: <span class="o-score-num">0</span></div>
+            <div class="player-o-score">Score: <span class="o-score-num">1</span></div>
         </div>
     </div>
-    <button>Reset</button>
+    <div class="buttons">
+        <button class="new-game-button hidden-button" type="button" onclick="gameController.startNewGame();">New Game</button>
+        <button class="reset-button" type="button" onclick="gameController.resetGame();">Reset</button>
+    </div>
     <div class="gameboard">
-        <div class="game-cell top-row left-column" data-index="0">&nbsp;</div>
-        <div class="game-cell top-row middle-column" data-index="1">&nbsp;</div>
-        <div class="game-cell top-row right-column" data-index="2">&nbsp;</div>
-        <div class="game-cell middle-row left-column" data-index="3">&nbsp;</div>
-        <div class="game-cell middle-row middle-column" data-index="4">&nbsp;</div>
-        <div class="game-cell middle-row right-column" data-index="5">&nbsp;</div>
-        <div class="game-cell bottom-row left-column" data-index="6">&nbsp;</div>
-        <div class="game-cell bottom-row middle-column" data-index="7">&nbsp;</div>
-        <div class="game-cell bottom-row right-column" data-index="8">&nbsp;</div>
+        <div class="game-cell top-row left-column" data-index="0" onclick="gameController.recordMove(0);">&nbsp;</div>
+        <div class="game-cell top-row middle-column" data-index="1" onclick="gameController.recordMove(1);">&nbsp;</div>
+        <div class="game-cell top-row right-column" data-index="2" onclick="gameController.recordMove(2);">&nbsp;</div>
+        <div class="game-cell middle-row left-column" data-index="3" onclick="gameController.recordMove(3);">&nbsp;</div>
+        <div class="game-cell middle-row middle-column" data-index="4" onclick="gameController.recordMove(4);">&nbsp;</div>
+        <div class="game-cell middle-row right-column" data-index="5" onclick="gameController.recordMove(5);">&nbsp;</div>
+        <div class="game-cell bottom-row left-column" data-index="6" onclick="gameController.recordMove(6);">&nbsp;</div>
+        <div class="game-cell bottom-row middle-column" data-index="7" onclick="gameController.recordMove(7);">&nbsp;</div>
+        <div class="game-cell bottom-row right-column" data-index="8" onclick="gameController.recordMove(8);">&nbsp;</div>
     </div>
     <footer></footer>
 </body>
