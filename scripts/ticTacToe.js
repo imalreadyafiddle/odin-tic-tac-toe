@@ -8,33 +8,34 @@ const gameBoard = (() => {
     return { gameArray };
 })();
 
-const playerFactory = (sign, currentPlayer, movesMade) => {
-    return { sign, currentPlayer, movesMade };
+const playerFactory = (sign, currentPlayer, movesMade, score) => {
+    return { sign, currentPlayer, movesMade, score };
 };
 
 const gameController = (() => {
-    const playerX = playerFactory("X", true, []);
-    const playerO = playerFactory("O", false, []);
+    const playerX = playerFactory("X", true, [], 0);
+    const playerO = playerFactory("O", false, [], 0);
     const players = [playerX, playerO];
     let gameState = true;
-    const playerScores = {"X": 0, "O": 0}
 
     const resetGame = () => {
-        gameController.playerScores.O = 0;
-        gameController.playerScores.X = 0;
+        gameController.playerX.score = 0;
+        gameController.playerO.score = 0;
         gameBoard.gameArray = [
             ,,,
             ,,,
             ,,, 
         ];
-        playerX.currentPlayer = true;
-        playerO.currentPlayer = false;
-        gameState = true;
+        gameController.playerX.currentPlayer = true;
+        gameController.playerO.currentPlayer = false;
+        gameController.gameState = true;
         playerX.movesMade = [];
         playerO.movesMade = [];
         displayController.updateScoreDisplay();
         displayController.updateTurnDisplay();
         displayController.updateBoardDisplay();
+        let newGameButton = document.querySelector('.new-game-button')
+        newGameButton.classList.add('hidden-button');
     }
 
     const startNewGame = () => {
@@ -43,14 +44,16 @@ const gameController = (() => {
             ,,,
             ,,, 
         ];
-        playerX.currentPlayer = true;
-        playerO.currentPlayer = false;
-        gameState = true;
+        gameController.playerX.currentPlayer = true;
+        gameController.playerO.currentPlayer = false;
+        gameController.gameState = true;
         playerX.movesMade = [];
         playerO.movesMade = [];
         displayController.updateScoreDisplay();
         displayController.updateTurnDisplay();
         displayController.updateBoardDisplay();
+        let newGameButton = document.querySelector('.new-game-button')
+        newGameButton.classList.add('hidden-button');
     }
 
     const getTurn = (players) => {
@@ -109,7 +112,7 @@ const gameController = (() => {
             // delcare a win if all values of winningCombos[i] are in playerMoves
             if (includesAll(playerMoves, winningCombos[i]) == true) {
                 console.log("Win!")
-                // call setResult("win")
+                gameController.setResult("win");
                 break
             }
             
@@ -118,24 +121,39 @@ const gameController = (() => {
                 // declare a tie if 9 moves have been made and all winning combos have been iterated over
                 if (gameController.playerX.movesMade.length + gameController.playerO.movesMade.length == 9 && i == 7) {
                     console.log("Tie!")
-                    // call setResult("tie")
+                    gameController.setResult("tie");
                     break
                 }
             }
 
+            // if there's no win and a tie was not detected
             if (i == winningCombos.length - 1) {
                 console.log("No win, next players turn!")
                 gameController.setTurn(gameController.players);
+                displayController.updateTurnDisplay();
             }
         }
 
     }
 
     const setResult = (result) => {
+        // do stuff if this is called with a win result
+        if (result == "win") {
+            displayController.updateDisplayWin();
+            let winningPlayer = gameController.getTurn(gameController.players);
+            winningPlayer.score++;
+            gameController.gameState = false;
+            displayController.updateScoreDisplay();
+        }
 
+        // do other stuff if this is called with a tie result
+        if (result == "tie") {
+            displayController.updateDisplayTie();
+            gameController.gameState = false;
+        }
     }
 
-    return { playerX, playerO, players, playerScores, gameState, resetGame, startNewGame, getTurn, setTurn, recordMove, checkBoard, setResult }
+    return { playerX, playerO, players, gameState, resetGame, startNewGame, getTurn, setTurn, recordMove, checkBoard, setResult }
 })();
 
 const displayController = (() => {
@@ -155,8 +173,8 @@ const displayController = (() => {
     const updateScoreDisplay = () => {
      let oScore = document.querySelector('.o-score-num');
      let xScore = document.querySelector('.x-score-num');
-     xScore.innerText = gameController.playerScores.X;
-     oScore.innerText = gameController.playerScores.O;
+     xScore.innerText = gameController.playerX.score;
+     oScore.innerText = gameController.playerO.score;
     }
 
     const updateTurnDisplay = () => {
@@ -166,11 +184,17 @@ const displayController = (() => {
     }
 
     const updateDisplayWin = () => {
-        // display end result, likely to be called by gameController.checkBoard
         let gResult = document.querySelector('.game-console');
         let player = gameController.getTurn(gameController.players);
+        let newGameButton = document.querySelector('.new-game-button')
+        newGameButton.classList.remove('hidden-button');
         gResult.innerText = `PLAYER ${player.sign} WINS!`
     }
 
-    return { updateBoardDisplay, updateScoreDisplay, updateTurnDisplay, updateDisplayWin }
+    const updateDisplayTie = () => {
+        let gResult = document.querySelector('.game-console');
+        gResult.innerText = `TIE GAME!`
+    }
+
+    return { updateBoardDisplay, updateScoreDisplay, updateTurnDisplay, updateDisplayWin, updateDisplayTie }
 })();
