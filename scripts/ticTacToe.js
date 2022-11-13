@@ -54,14 +54,14 @@ const gameController = (() => {
     }
 
     const getTurn = (players) => {
-        for (i = 0; i < players.length; i++) {
+        for (let i = 0; i < players.length; i++) {
             if (players[i].currentPlayer == false) {continue}
             else {return players[i]}
         }
     }
 
     const setTurn = (players) => {
-        for (i = 0; i < players.length; i++) {
+        for (let i = 0; i < players.length; i++) {
             if (players[i].currentPlayer == false) {players[i].currentPlayer = true}
             else {players[i].currentPlayer = false}
         }
@@ -102,19 +102,21 @@ const gameController = (() => {
         ]
 
         // iterate over winning combos, check playerObj.playerMoves for all values in each winning combo, do something if there's a win.
-        for (i=0; i < winningCombos.length; i++) {
+        for (let i = 0; i < winningCombos.length; i++) {
 
             let includesAll = (arr, values) => values.every(v => arr.includes(v));
 
+            // delcare a win if all values of winningCombos[i] are in playerMoves
             if (includesAll(playerMoves, winningCombos[i]) == true) {
                 console.log("Win!")
                 // call setResult("win")
                 break
             }
             
+            // if there's not a win, check to see if there's a tie
             if (includesAll(playerMoves, winningCombos[i]) == false) {
-                console.log("No Win!")
-                if (gameController.playerX.movesMade.length + gameController.playerO.movesMade.length == 9) {
+                // declare a tie if 9 moves have been made and all winning combos have been iterated over
+                if (gameController.playerX.movesMade.length + gameController.playerO.movesMade.length == 9 && i == 7) {
                     console.log("Tie!")
                     // call setResult("tie")
                     break
@@ -123,7 +125,7 @@ const gameController = (() => {
 
             if (i == winningCombos.length - 1) {
                 console.log("No win, next players turn!")
-                // call setTurn
+                gameController.setTurn(gameController.players);
             }
         }
 
@@ -140,7 +142,7 @@ const displayController = (() => {
 
     const updateBoardDisplay = () => {
         let cells = Array.from(document.querySelectorAll('.game-cell'));
-        for (i = 0; i < cells.length; i++) {
+        for (let i = 0; i < cells.length; i++) {
             if (gameBoard.gameArray[i] == undefined) {
                 cells[i].innerHTML = "&nbsp;"
             }
@@ -163,12 +165,12 @@ const displayController = (() => {
         pTurn.innerText = `PLAYER ${player.sign} TURN` 
     }
 
-    const updateResultDisplay = () => {
+    const updateDisplayWin = () => {
         // display end result, likely to be called by gameController.checkBoard
         let gResult = document.querySelector('.game-console');
         let player = gameController.getTurn(gameController.players);
         gResult.innerText = `PLAYER ${player.sign} WINS!`
     }
 
-    return { updateBoardDisplay, updateScoreDisplay, updateTurnDisplay, updateResultDisplay }
+    return { updateBoardDisplay, updateScoreDisplay, updateTurnDisplay, updateDisplayWin }
 })();
