@@ -194,6 +194,8 @@ const displayController = (() => {
     const updateDisplayTie = () => {
         let gResult = document.querySelector('.game-console');
         gResult.innerText = `TIE GAME!`
+        let newGameButton = document.querySelector('.new-game-button')
+        newGameButton.classList.remove('hidden-button');
     }
 
     return { updateBoardDisplay, updateScoreDisplay, updateTurnDisplay, updateDisplayWin, updateDisplayTie }
