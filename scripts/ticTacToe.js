@@ -16,7 +16,7 @@ const gameController = (() => {
     const playerX = playerFactory("X", true, []);
     const playerO = playerFactory("O", false, []);
     const players = [playerX, playerO];
-    const gameState = true;
+    let gameState = true;
     const playerScores = {"X": 0, "O": 0}
 
     const resetGame = () => {
@@ -68,22 +68,23 @@ const gameController = (() => {
     }
 
     const recordMove = (index) => {
-        // add and gameState != over maybe? need gameState variable.
-        if (gameBoard.gameArray[index] != undefined && gameController.gameState == false) {
+        if (gameBoard.gameArray[index] != undefined || gameController.gameState == false) {
             console.log("Not a valid move!");
         }
         else {
             let player = gameController.getTurn(gameController.players)
             gameBoard.gameArray[index] = player.sign;
             player.movesMade.push(index);
+            displayController.updateBoardDisplay();
             gameController.checkBoard(player);
         }
     }
 
     const checkBoard = (player) => {
-        // possible winning index combos
+        // bring in moves made by current player
         let playerMoves = player.movesMade;
-        
+
+        // possible winning index combos
         const winningCombos = [
             // across
             [0, 1, 2],
@@ -100,11 +101,39 @@ const gameController = (() => {
             [2, 4, 6]
         ]
 
-        // iterate over winning combos, check player moves for all values in each winning combo, do something if there's a win.
+        // iterate over winning combos, check playerObj.playerMoves for all values in each winning combo, do something if there's a win.
+        for (i=0; i < winningCombos.length; i++) {
+
+            let includesAll = (arr, values) => values.every(v => arr.includes(v));
+
+            if (includesAll(playerMoves, winningCombos[i]) == true) {
+                console.log("Win!")
+                // call setResult("win")
+                break
+            }
+            
+            if (includesAll(playerMoves, winningCombos[i]) == false) {
+                console.log("No Win!")
+                if (gameController.playerX.movesMade.length + gameController.playerO.movesMade.length == 9) {
+                    console.log("Tie!")
+                    // call setResult("tie")
+                    break
+                }
+            }
+
+            if (i == winningCombos.length - 1) {
+                console.log("No win, next players turn!")
+                // call setTurn
+            }
+        }
 
     }
 
-    return { playerX, playerO, players, playerScores, gameState, resetGame, startNewGame, getTurn, setTurn, recordMove, checkBoard }
+    const setResult = (result) => {
+
+    }
+
+    return { playerX, playerO, players, playerScores, gameState, resetGame, startNewGame, getTurn, setTurn, recordMove, checkBoard, setResult }
 })();
 
 const displayController = (() => {
